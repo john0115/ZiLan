@@ -25,7 +25,7 @@ SECRET_KEY = '^76_zi!1ml!sl9y1*=urv5ovqzfkeqt0ft1)a6@-qf(hek!40@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ZilanCMS',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -54,7 +56,8 @@ ROOT_URLCONF = 'ZiLan.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                 os.path.join(BASE_DIR, 'ZilanCMS', 'templates'),]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -64,6 +67,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'my_customer_tags': 'ZilanCMS.templatetags.myfilter',
+
+            }
         },
     },
 ]
@@ -77,7 +84,7 @@ WSGI_APPLICATION = 'ZiLan.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite13'),
     }
 }
 
@@ -104,18 +111,34 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS=[os.path.join(BASE_DIR, "static"),
+                  os.path.join(BASE_DIR, "ZilanCMS", "static"),]
+
+#改用AllUser作为auth自动验证的用户表
+AUTH_USER_MODEL = "ZilanCMS.AllUser"
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}

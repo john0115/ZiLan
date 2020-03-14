@@ -14,8 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
+from ZilanCMS.urls import dis as disurls
+from ZilanCMS.urls import ctr as ctrurls
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-]
+
+    path('django-admin/', admin.site.urls),
+    #Dis前台路径
+    path('', include(disurls)),
+    #ctr后台路径
+    path('ctr/', include(ctrurls)),
+
+    # path('logout/', admin.site.urls),#登出
+    # path('register/', admin.site.urls),#注册
+    # path('cancellation/', admin.site.urls),#注销账户
+
+
+
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # 增加开发模式下media文件的访问
