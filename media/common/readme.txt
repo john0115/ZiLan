@@ -1,0 +1,1 @@
+thumbnail.jpg 为作品的默认封面

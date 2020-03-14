@@ -1,0 +1,51 @@
+{#login/templates/login/login.html#}
+{% extends 'dis_base.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+{% block css %}
+    <link href="{% static "ZilanCMS/css/login.css" %}" rel="stylesheet">
+        <script src="{% static "ZilanCMS/js/login.js" %}"></script>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="col-md-12 col-md-offset-4">
+            <h2 class="text-center">用户信息</h2>
+            <h5 class="text-center text-danger">{{ message }}</h5>
+            <ul class="list-inline">
+            <li class="li-a-1 list-inline-item">ID号</li>
+            <li class="li-a-1 list-inline-item">姓名</li>
+            <li class="li-a-1 list-inline-item">电话</li>
+            <li class="li-a-1 list-inline-item">邮件地址</li>
+            <li class="li-a-1 list-inline-item">加入时间</li>
+            <li class="li-a-1 list-inline-item"></li>
+            </ul>
+            <ul class="list-inline">
+            <li class="li-a-1 list-inline-item">{{ user.id }}</li>
+            <li class="li-a-1 list-inline-item">{{ user.username }}</li>
+            <li class="li-a-1 list-inline-item">{{ user.phone }}</li>
+            <li class="li-a-1 list-inline-item">{{ user.email }}</li>
+            <li class="li-a-1 list-inline-item">{{ user.date_joined }}</li>
+            <li class="li-a-1 list-inline-item"></li>
+            </ul>
+            <h2 class="text-center">用户作品</h2>
+            <dl class="dl-horizontal">
+            {% for work in works %}
+
+              <dt>{{ work.filename }}</dt>
+              <dd><img class="col-md-3 row-cols-3" src="{{ work.thumbnail.url }}"/></dd>{% csrf_token %}
+                <dd><button id="test" value="{{ work.id }}" class="btn btn-danger">DELETE</button></dd>
+{#            <ul class="list-inline">#}
+{#            <li class="li-a-1 list-inline-item">{{ work.filename }}</li>#}
+{#                <img class="col-md-12 col-" src="{{ work.thumbnail.upload_to }}"/>#}
+{#            </ul>#}
+            {% endfor %}
+          </dl>
+        </div>
+    <a class="button" href="/logout/"  >登出</a>
+      <a class="button" href="/logoff/"  >注销</a>
+    </div> <!-- /container -->
+{% endblock %}

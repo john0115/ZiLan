@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>{% block title %}base{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="{% static "bootstrap-4.4.1-dist/css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static "js/jquery-3.4.1.min.js" %}"></script>
+      <script src="{% static "js/jquery.cookie.js" %}"></script>
+    <script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "bootstrap-4.4.1-dist/js/bootstrap.min.js" %}"></script>
+    <!--<script src="{% static "js/popper.min.js" %}"></script>-->
+    {% block css %}{% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+         <img src="{% static "ZilanCMS/images/adminlogo.jpg" %}" class="col-md-1">
+        <div class="navbar-header left col-md-10">
+          <a class="navbar-brand nav-pills" href="/ctr/">首页</a>
+        </div>
+
+        <ul class="nav navbar-nav col-md-1">
+            <li class="active"><a href="/ctr/login/">登录</a></li>
+            <li><a href="/ctr/logout">退出</a></li>
+        </ul>
+{#          <ul class="nav navbar-nav navbar-right nav-pills">#}
+{#            <li><a href="/login/">登录</a></li>#}
+{#            <li><a href="/register/">注册</a></li>#}
+{#          </ul>#}
+
+      </div><!-- /.container-fluid -->
+    </nav>
+
+
+    {% block content %}{% endblock %}
+
+
+
+  </body>
+</html>

@@ -1,0 +1,32 @@
+{#login/templates/login/login.html#}
+{% extends 'dis_base.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+{% block css %}
+    <link href="{% static "ZilanCMS/css/login.css" %}" rel="stylesheet">
+    <script src="{% static "ZilanCMS/js/login.js" %}"></script>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+          <form class='form-login' action="/login/" method="post"> {% csrf_token %}
+              <h2 class="text-center">欢迎登录</h2>
+              <h5 class="text-center" id="mess">{{ mess }}</h5>
+              <div class="form-group">
+                <label for="id_username">用户名：</label>
+                <input type="text" name='id_username' class="form-control" id="id_username" placeholder="Username" autofocus required>
+              </div>
+              <div class="form-group">
+                <label for="id_password">密码：</label>
+                <input type="password" name='id_password' class="form-control" id="id_password" placeholder="Password" required>
+              </div>
+              <button type="reset" class="btn btn-default pull-left">重置</button>
+              <button type="submit" class="btn btn-primary pull-right">提交</button>
+              <span type="button" class="btn pull-right" id="reg"><a href="/reg/" >注册</a></span>
+          </form>
+        </div>
+    </div> <!-- /container -->
+{% endblock %}

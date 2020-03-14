@@ -1,0 +1,85 @@
+{#login/templates/login/login.html#}
+{% extends 'ctr_base.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+{% block css %}
+    <link href="{% static "ZilanCMS/css/login.css" %}" rel="stylesheet">
+        <script src="{% static "ZilanCMS/js/login.js" %}"></script>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div id="now-user" class="col-md-12">
+            <h2 class="text-center">当前用户 </h2>
+            <h5 class="text-center text-danger">{{ message }}</h5>
+            <ul class="list-inline">
+            <li class="li-a-1 list-inline-item">ID号</li>
+            <li class="li-a-1 list-inline-item">姓名</li>
+            <li class="li-a-1 list-inline-item">电话</li>
+            <li class="li-a-1 list-inline-item">邮件地址</li>
+            <li class="li-a-1 list-inline-item">加入时间</li>
+            <li class="li-a-1 list-inline-item"></li>
+            </ul>
+            <ul class="list-inline">
+            <li class="li-a-1 list-inline-item">{{ user.id }}</li>
+            <li class="li-a-1 list-inline-item">{{ user.username }}</li>
+            <li class="li-a-1 list-inline-item">{{ user.phone }}</li>
+            <li class="li-a-1 list-inline-item">{{ user.email }}</li>
+            <li class="li-a-1 list-inline-item">{{ user.date_joined }}</li>
+            <li class="li-a-1 list-inline-item"></li>
+            </ul>
+        </div>
+        <div id="now-user" class="col-md-12 col-md-offset-4">
+            <h2 class="text-center">{{ title }}</h2>
+            <dl class="dl-horizontal row justify-content-between">
+                <a href="/ctr/add/{{ mk }}"><span class="btn btn-info col-auto">添加 </span></a>
+{#                <span class="col-md-2"><a href="">11</a></span>#}
+                {% if alltypes %}
+                <select onchange="location.href = '/ctr/type/{{ mk }}/'+this.options[this.selectedIndex].value" class="col-md-2 col-auto" name="type" required="" id="type" >
+                    <option value="" >全部</option>
+                    {% for type in alltypes %}
+                        {% if type.id == tk %}{{ type.id }}vs{{ pk }}<option value="{{ type.id }}" selected>{{ type.typename }}</option>
+                        {% else %}<option value="{{ type.id }}">{{ type.typename }}</option>{% endif %}
+                    {% endfor %}
+                </select>
+                {% endif %}
+            </dl>
+
+            <ul class="list-inline">
+                {% for key,value in field.items %}
+                <li class="li-a-1 list-inline-item col-md-2">{{ value }}</li>
+                {% endfor %}
+{#            <li class="li-a-1 list-inline-item col-md-1">用户名</li>#}
+{#            <li class="li-a-1 list-inline-item col-md-1">电话</li>#}
+{#            <li class="li-a-1 list-inline-item">电话</li>#}
+{#            <li class="li-a-1 list-inline-item">邮件地址</li>#}
+{#            <li class="li-a-1 list-inline-item">加入时间</li>#}
+{#            <li class="li-a-1 list-inline-item"></li>#}
+            </ul>
+            {% load myfilter %}
+            {% for data in datas %}
+            <ul class="list-inline ">
+                 {% for key,value in field.items %}
+                <li class="li-a-1 list-inline-item col-md-2">{{ data|key_to_value:key }} </li>
+                {% endfor %}
+            <li class="li-a-1 list-inline-item col-md-auto float-right"><button id="homedelete" value="{{ data.id }}" action="/ctr/home/{{ mk }}/" class="btn btn-danger home-delete">DELETE</button></li>
+            <li class="li-a-1 list-inline-item col-md-auto float-right"><a href="/ctr/edit/{{ mk }}/{{ data.id }}"><span id="edit" value="{{ data.id }}" class="btn btn-secondary" >编辑</span></a></li>
+
+            </ul>
+{#              <dt class="col-md-3">{{ data.username }}</dt>#}
+{#              <dd class="col-md-3 row-cols-3"><img  src="{{ data.phone }}"/></dd>#}
+{#                <dd><span id="edit" value="{{ data.id }}" class="btn btn-danger" ><a href="/ctr/edituser/{{ data.id }}">编辑</a></span></dd>#}
+{#                <dd><button id="delete" value="{{ data.id }}" action="{{ action }}" class="btn btn-danger btn-delete">DELETE</button></dd>#}
+{#            <ul class="list-inline">#}
+{#            <li class="li-a-1 list-inline-item">{{ work.filename }}</li>#}
+{#                <img class="col-md-12 col-" src="{{ work.thumbnail.upload_to }}"/>#}
+{#            </ul>#}
+            {% endfor %}
+
+        </div>
+    <a class="button" href="/ctr/logout/"  >登出</a>
+    </div> <!-- /container -->
+{% endblock %}

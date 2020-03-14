@@ -1,0 +1,46 @@
+{#login/templates/login/login.html#}
+{% extends 'dis_base.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+{% block css %}
+    <link href="{% static "ZilanCMS/css/login.css" %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+           <div class="col-md-12 col-md-offset-4" id="files-list">
+            <h2 class="text-center">文件信息</h2>
+            <h5 class="text-center text-danger">{{ message }}</h5>
+            <ul class="list-inline">
+            <li class="li-a-1 list-inline-item">名称</li>
+            <li class="li-a-1 list-inline-item">文件说明</li>
+            <li class="li-a-1 list-inline-item">操作说明</li>
+            <li class="li-a-1 list-inline-item">缩略图</li>
+            <li class="li-a-1 list-inline-item">下载地址</li>
+            <li class="li-a-1 list-inline-item">创建时间</li>
+            </ul>
+            <ul class="list-inline">
+            <li class="li-a-1 list-inline-item">{{ user.id }}</li>
+            <li class="li-a-1 list-inline-item">{{ user.username }}</li>
+            <li class="li-a-1 list-inline-item">{{ user.phone }}</li>
+            <li class="li-a-1 list-inline-item">{{ user.email }}</li>
+            <li class="li-a-1 list-inline-item">{{ user.date_joined }}</li>
+            <li class="li-a-1 list-inline-item"></li>
+            </ul>
+        </div>
+        <div class="col-md-12 col-md-offset-4">
+          <form class='form-login' action="/uploadwork/" method="post" enctype="multipart/form-data"> {% csrf_token %}
+              <h2 class="text-center">上传文件</h2>
+              <h5 class="text-center" id="mess">{{ message }}</h5>
+              <table class="list-group-horizontal">{{ fileform.as_table }}</table>
+              <button type="reset" class="btn btn-default pull-left">重置</button>
+              <button type="submit" class="btn btn-primary pull-right">提交</button>
+              <span type="button" class="btn btn-primary pull-right" id="ajaxsubmit">Ajax提交</span>
+          </form>
+        </div>
+    <a class="button" href="/logout/" >登出</a>
+    </div> <!-- /container -->
+{% endblock %}
